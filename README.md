@@ -29,3 +29,9 @@ If you want to use a json file with a different name, run:
 ```bash
 download_sst -f my_json_file.json
 ```
+
+You can also specify a download path with the flag `-d`, this will overwrite the path in the json file if present:
+
+```bash
+download_sst -d mypath/to/sst/downloads/
+```
