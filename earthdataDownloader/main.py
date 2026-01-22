@@ -3,11 +3,20 @@
 import earthaccess
 import glob
 import json
+import argparse
 from pathlib import Path
 
 def main():
+    parser = argparse.ArgumentParser(description="Download satellite data from NASA Earthdata")
+    parser.add_argument('-f', '--file', type=str, default='search.json',
+                        help='Path to JSON configuration file (default: search.json)')
+    args = parser.parse_args()
+    
     # Load search parameters from JSON file
-    config_path = Path(__file__).parent.parent / "search.json"
+    config_path = Path(args.file)
+    if not config_path.is_absolute():
+        config_path = Path(__file__).parent.parent / config_path
+    
     with open(config_path, 'r') as f:
         config = json.load(f)
     
