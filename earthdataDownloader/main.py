@@ -3,23 +3,25 @@
 import earthaccess
 import glob
 
+products_short_names = [
+    "AVHRR_SST_METOP_B_GLB-OSISAF-L3C-v1.0", # L3 AVHRR
+    "OSTIA-UKMO-L4-GLOB-REP-v2.0"            # L4
+]
+bb = (27, -80, 53, -30)
+time_range = ("2019-12-31", "2020-01-03")
 
 def main():
 
-    L3 = "AVHRR_SST_METOP_B_GLB-OSISAF-L3C-v1.0"
-    L4 = "OSTIA-UKMO-L4-GLOB-REP-v2.0"
-    bb = (27, -80, 53, -30)
-    time_range = ("2019-12-31", "2020-01-03")
     dl_folders = {}
-    dl_folders[L3] = "./downloads/" + L3 + "/"
-    dl_folders[L4] = "./downloads/" + L4 + "/"
+    for name in products_short_names:
+        dl_folders[name] = "./downloads/" + name + "/"
     
     # 1. Login
     print("Logging in...")
     earthaccess.login()
 
     # 2. Search
-    for name in [L3,L4]:
+    for name in products_short_names:
         print(
             f"Looking for {name} data in box {bb} and time range {time_range}..."
         )
