@@ -10,6 +10,8 @@ def main():
     parser = argparse.ArgumentParser(description="Download satellite data from NASA Earthdata")
     parser.add_argument('-f', '--file', type=str, default='search.json',
                         help='Path to JSON configuration file (default: search.json)')
+    parser.add_argument('-d', '--download-path', type=str, default=None,
+                        help='Root path for downloads (overrides config file)')
     args = parser.parse_args()
     
     # Load search parameters from JSON file
@@ -23,10 +25,13 @@ def main():
     products_short_names = config["products_short_names"]
     bb = tuple(config["bounding_box"])
     time_range = tuple(config["time_range"])
-
+    
+    # Use CLI download path if provided, otherwise use config, otherwise default
+    download_root = args.download_path or config.get("download_root", "./downloads/")
+    
     dl_folders = {}
     for name in products_short_names:
-        dl_folders[name] = "./downloads/" + name + "/"
+        dl_folders[name] = download_root + name + "/"
     
     # 1. Login
     print("Logging in...")

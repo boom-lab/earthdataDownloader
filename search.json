@@ -4,5 +4,6 @@
     "OSTIA-UKMO-L4-GLOB-REP-v2.0"
   ],
   "bounding_box": [27, -80, 53, -30],
-  "time_range": ["2019-12-31", "2020-01-03"]
+  "time_range": ["2020-01-02", "2020-01-03"],
+  "download_root": "./downloads/"
 }
