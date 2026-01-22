@@ -2,15 +2,18 @@
 
 import earthaccess
 import glob
-
-products_short_names = [
-    "AVHRR_SST_METOP_B_GLB-OSISAF-L3C-v1.0", # L3 AVHRR
-    "OSTIA-UKMO-L4-GLOB-REP-v2.0"            # L4
-]
-bb = (27, -80, 53, -30)
-time_range = ("2019-12-31", "2020-01-03")
+import json
+from pathlib import Path
 
 def main():
+    # Load search parameters from JSON file
+    config_path = Path(__file__).parent.parent / "search.json"
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+    
+    products_short_names = config["products_short_names"]
+    bb = tuple(config["bounding_box"])
+    time_range = tuple(config["time_range"])
 
     dl_folders = {}
     for name in products_short_names:
